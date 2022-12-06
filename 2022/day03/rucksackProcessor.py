@@ -66,6 +66,7 @@ def main():
             # print (len(line))
             totalWeight += search_string(line[:len(line)//2], line[len(line)//2:])
     print(totalWeight)
+    totalBadgePriority()
 
 def search_string(firstString: str, secondString: str):
     for char in firstString: 
@@ -75,13 +76,28 @@ def search_string(firstString: str, secondString: str):
             return numberKeyDict[char]
             
 def totalBadgePriority():
+    totalWeight = 0
     with open('input.txt', 'r') as file:
         lineList = []
+        counter = 0
         for line in file:
-            matchingBadges = []
-            counter = 0
-            lineList.append(line)
+            counter += 1
+            lineList.append(line.replace('\n', ''))
+            if counter % 3 == 0:
+                str1 = str(lineList.pop())
+                print(str1)
+                str2 = str(lineList.pop())
+                print(str2)
+                str3 = str(lineList.pop())
+                print(str3)
+                totalWeight += get_shared_badge_weight(str1, str2, str3)
+    print(totalWeight)
 
+def get_shared_badge_weight(one: str, two: str, three: str):
+    for char in one:
+        if two.__contains__(char) and three.__contains__(char):
+            print(char)
+            return numberKeyDict[char]
 
 
 if __name__ == '__main__':
